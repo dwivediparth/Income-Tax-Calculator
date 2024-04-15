@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAX CALCULATOR</title>
+    <link rel="stylesheet" href="style3.css">
+    <link rel="stylesheet" href="https://icons.getbootstrap.com/icons/question-circle/">
+
+
+
+</head>
+<body>
+    <script src="script3.js"></script>
+
+    <div class="container">
+        <header>
+            <h1>TAX CALCULATOR</h1>
+        </header>
+        <main>
+            <section>
+                <form id="tax-form">
+                    <div>
+                        <label for="income">Enter gross annual income  <span data-bs-toggle="tooltip" data-bs-placement="right" title="Here's some amazing content.">
+                            <i class="bi bi-question-circle" style="font-size: 1.5rem;"></i>
+                        </span>
+                    </label>
+                        <input type="number" id="income" placeholder="Enter the gross annual income" name="income" required>
+                         <span data-bs-toggle="tooltip" data-bs-placement="right" title="Gross annual income is your total salary in a year before any deduction.">
+                            <i class="bi bi-question-circle" style="font-size: 1.5rem;"></i>
+                        </span> 
+                       
+                    </div>
+                    <div>
+                        <label for="expenses">Enter extra income</label>
+                        <input type="number" id="expenses" placeholder="Enter extra income from other sources" name="expenses" required>
+                    </div>
+                    <div>
+                        <label for="deductions">Enter total applicable deductions</label>
+                        <input type="number" id="deductions" placeholder="Add total applicable deduction" name="deductions" required>
+                    </div>
+                    <label>Enter age group</label>
+                    <select id="age" name="age">
+                        <option value="below40">Below 40</option>
+                        <option value="40to60">40 to 60</option>
+                        <option value="above60">Above 60</option>
+                    </select>
+                    <button onclick="calculateTax()">Submit</button>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function calculateTax() {
+            const income = Number(document.getElementById("income").value);
+            const expenses = Number(document.getElementById("expenses").value);
+            const deductions = Number(document.getElementById("deductions").value);
+            const netIncome = income - expenses - deductions;
+            const age = document.getElementById("age").value;
+
+            let tax;
+            if (netIncome <= 800000) {
+                tax = 0;
+            } else if (age === "below40") {
+                tax = 0.3 * (netIncome - 800000);
+            } else if (age === "40to60") {
+                tax = 0.4 * (netIncome - 800000);
+            } else {
+                tax = 0.1 * (netIncome - 800000);
+            }
+
+            alert(`The income tax of an income of ${netIncome} is: ${tax}`);
+        }
+    </script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
+    </script>
+   
+    
+</body>
+
+</html>
